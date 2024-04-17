@@ -1,5 +1,6 @@
 "use server";
 
+import clientPromise from "@/lib/database";
 import axios from "axios";
 import { jwtVerify } from "jose";
 import { cookies } from "next/headers";
@@ -7,6 +8,8 @@ import { redirect } from "next/navigation";
 
 export async function send(formData: FormData) {
   const message = formData.get("message");
+
+  if (typeof message !== "string") return;
 
   let userId: string;
   try {
@@ -39,6 +42,10 @@ export async function send(formData: FormData) {
       },
     },
   );
+
+  const database = await clientPromise;
+
+  await database.hSet("logs", msg.data.id, userId);
 
   return msg.status === 200;
 }

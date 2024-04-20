@@ -30,8 +30,6 @@ export async function GET(req: Request) {
     },
   );
 
-  console.log("CHECKPOINT");
-
   const userRes = await axios.get(DISCORD_USER_GUILD_INFO_URL, {
     headers: {
       Authorization: `Bearer ${accessTokenExchangeRes.data.access_token}`,

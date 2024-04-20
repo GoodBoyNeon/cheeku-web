@@ -7,8 +7,6 @@ import { redirect } from "next/navigation";
 export default async function Home() {
   const user = await verifyUser(cookies().get("token"));
 
-  console.log("useruser", user);
-
   if (user) {
     return redirect("/send");
   }

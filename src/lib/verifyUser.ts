@@ -1,7 +1,6 @@
 import { jwtVerify } from "jose";
 
 export async function verifyUser(cookie: unknown): Promise<string | null> {
-  console.log(typeof cookie);
   if (
     !cookie ||
     typeof cookie !== "object" ||
@@ -9,7 +8,6 @@ export async function verifyUser(cookie: unknown): Promise<string | null> {
     typeof cookie?.value !== "string"
   )
     return null;
-  console.log("AAA");
 
   const jwt = await jwtVerify(
     cookie.value,
@@ -19,7 +17,6 @@ export async function verifyUser(cookie: unknown): Promise<string | null> {
       audience: "auth",
     },
   ).catch((e) => {
-    console.log("errpr");
     console.log(e);
     return null;
   });
